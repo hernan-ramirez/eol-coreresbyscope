@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <type name="CoreResultByScopeWP.ResultByScope.ResultByScope, $SharePoint.Project.AssemblyFullName$" />
+      <importErrorMessage>$Resources:core,ImportErrorMessage;</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">Resultados de Búsqueda por Perfil</property>
+        <property name="Description" type="string">Este elemento web devuelve los resultados de búsqueda, según el perfil de usuario.</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

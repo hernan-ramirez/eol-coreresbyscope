@@ -1,0 +1,91 @@
+﻿using System;
+using System.ComponentModel;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using Microsoft.SharePoint;
+using Microsoft.SharePoint.WebControls;
+
+using Microsoft.Office.Server.Search.WebControls;
+using Microsoft.Office.Server.Search.Query;
+using Microsoft.IdentityModel.Claims;
+using System.Threading;
+using System.Xml.XPath;
+
+
+
+namespace CoreResultByScopeWP.ResultByScope
+{
+    [ToolboxItemAttribute(false)]
+    public class ResultByScope : CoreResultsWebPart
+    {
+
+        public QueryManager _queryManager;
+        public String _scopeValue;
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            _queryManager = SharedQueryManager.GetInstance(this.Page).QueryManager;
+            _scopeValue = GetPermisos();
+
+            // Ejemplo de valor devuelto por GetPermisos():
+            // _scopeValue = " scope:\"Codigos\" OR scope:\"Dictamenes\"";           
+        }
+
+        protected override XPathNavigator GetXPathNavigator(string viewPath)
+        {
+            _queryManager.UserQuery += _scopeValue;
+
+<<<<<<< .mine
+=======
+            //_queryManager.UserQuery = _scopeValue;
+            _queryManager.UserQuery = "imn-fyr,imn-mon-com";
+
+>>>>>>> .r1407
+            return base.GetXPathNavigator(viewPath);
+        }
+
+
+        protected string GetPermisos()
+        {
+            string permisos = "";
+
+            if (HttpContext.Current.User != null)
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    IClaimsIdentity currentIdentity = System.Threading.Thread.CurrentPrincipal.Identity as IClaimsIdentity;
+                    
+                    String o = String.Empty;
+                    foreach (Claim claim in currentIdentity.Claims)
+                    {
+                        if (claim.ClaimType.Contains("claims/role"))
+                        {
+                            permisos += o + " scope:\"" + claim.Value + "\"";
+                            o = " OR";
+                        }
+                    }
+                }
+            }
+            return permisos;
+        }
+
+        protected override void CreateChildControls()
+        {
+            base.CreateChildControls();
+
+            // debug info
+            // Representa la consulta del usuario al final de la webpart del coreResult
+
+            Label debugInfo = new Label();
+            debugInfo.ID = "ConsultaDelUsuario";
+            debugInfo.Text = _queryManager.UserQuery;
+            debugInfo.Attributes.Add("style", "display:none;");
+
+            Controls.Add(debugInfo);
+        }
+
+    }
+}

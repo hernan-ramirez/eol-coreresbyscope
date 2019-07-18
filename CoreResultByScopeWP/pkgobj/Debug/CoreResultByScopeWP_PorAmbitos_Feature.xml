@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Creator="Hernan Ramirez" Description="Esta característica adiciona un elemento web que devuelve los resultados de búsqueda según el perfil de usuario." Id="6f4e0f9a-1b23-4af9-a57f-01c39c69478f" Scope="Site" Title="Resultados de Búsqueda por Perfil">
+  <ElementManifests>
+    <ElementManifest Location="ResultByScope\Elements.xml" />
+    <ElementFile Location="ResultByScope\ResultByScope.webpart" />
+  </ElementManifests>
+</Feature>
